@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Badnaam Gali — Music</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Yatra+One&display=swap');
+
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#090706;color:#f5e6c8;font-family:"DM Sans",sans-serif}
+body{overflow-x:hidden}
+
+:root{
+ --gold:#d8ad63;
+ --cream:#f0dfbb;
+ --pink:#c83f6e;
+ --blue:#172c36;
+ --dark:#090706;
+}
+
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;
+ background-image:radial-gradient(#fff 1px,transparent 1px);
+ background-size:5px 5px;
+}
+
+.page{
+ min-height:100vh;
+ padding:22px;
+ background:
+ radial-gradient(circle at 50% 20%,#382016 0,#120c0a 34%,#080606 75%);
+}
+
+.frame{
+ min-height:calc(100vh - 44px);
+ border:2px solid var(--gold);
+ position:relative;
+ padding:42px;
+ box-shadow:inset 0 0 0 5px #1a110c,inset 0 0 0 7px #8e6837,0 20px 80px #000;
+ overflow:hidden;
+}
+
+.frame:before,.frame:after{
+ content:"";position:absolute;left:20px;right:20px;height:12px;
+ background:repeating-linear-gradient(90deg,var(--gold) 0 8px,transparent 8px 16px);
+ opacity:.6;
+}
+.frame:before{top:15px}.frame:after{bottom:15px}
+
+.flower{
+ position:absolute;width:120px;height:120px;border:1px solid #b7884b;
+ opacity:.55;transform:rotate(45deg);
+}
+.f1{top:-55px;left:-55px}.f2{top:-55px;right:-55px}.f3{bottom:-55px;left:-55px}.f4{bottom:-55px;right:-55px}
+
+header{
+ display:flex;justify-content:space-between;align-items:center;
+ border-bottom:1px solid #d8ad6344;padding-bottom:18px;
+}
+.logo{font-family:"Yatra One";font-size:28px;color:var(--gold)}
+.logo span{font-family:serif;font-size:17px;margin-left:8px;color:var(--cream)}
+nav{display:flex;gap:20px}
+nav a{color:#cbbba0;text-decoration:none;font-size:12px;letter-spacing:1px}
+nav a:hover{color:#fff}
+
+.hero{
+ min-height:58vh;display:grid;grid-template-columns:1.15fr .85fr;
+ align-items:center;gap:7vw;padding:5vh 4vw;
+}
+
+.kicker{
+ font-family:serif;font-size:clamp(24px,3vw,42px);color:var(--gold);
+}
+h1{
+ font-family:"Yatra One";font-size:clamp(65px,9vw,150px);
+ line-height:.82;margin:4px 0 22px;
+ color:var(--cream);letter-spacing:-4px;
+ text-shadow:3px 4px #7e243e;
+}
+.description{max-width:520px;color:#b9aa96;line-height:1.7;font-size:14px}
+
+.music-card{
+ background:linear-gradient(145deg,#17100dcc,#090706e8);
+ border:1px solid #d8ad6350;padding:25px;
+ box-shadow:0 25px 70px #000;
+}
+.card-title{font-family:"Yatra One";font-size:26px;color:var(--gold);margin-bottom:18px}
+.track{
+ display:flex;align-items:center;gap:14px;padding:12px 0;
+ border-bottom:1px solid #ffffff12;cursor:pointer;
+}
+.track:last-child{border:0}
+.num{width:25px;color:#947d5d;font-size:11px}
+.track-name{flex:1}
+.track-name strong{display:block;font-size:14px}
+.track-name small{color:#8f8478}
+.playmini{color:var(--gold)}
+
+.player{
+ display:flex;align-items:center;gap:15px;margin-top:18px;
+ padding-top:18px;border-top:1px solid #d8ad6330;
+}
+.play{
+ width:52px;height:52px;border-radius:50%;border:0;
+ background:var(--gold);color:#130b08;font-size:19px;cursor:pointer;
+}
+.now{flex:1;min-width:0}
+.now strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.now small{color:#93887d}
+.time{font-size:10px;color:#91877c}
+.progress{height:4px;background:#3a3027;margin-top:12px;cursor:pointer}
+.bar{height:100%;width:0;background:var(--gold)}
+
+section.library{padding:15px 4vw 30px}
+.section-title{
+ display:flex;justify-content:space-between;align-items:end;
+ border-bottom:1px solid #d8ad6330;padding-bottom:12px;margin-bottom:15px;
+}
+.section-title h2{font-family:"Yatra One";font-size:31px;margin:0;color:var(--cream)}
+.section-title span{font-size:11px;color:#9f9181}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tile{
+ min-height:125px;padding:18px;position:relative;overflow:hidden;
+ border:1px solid #d8ad6330;
+ background:linear-gradient(145deg,#25150f,#101315);
+}
+.tile:nth-child(2){background:linear-gradient(145deg,#211021,#101a20)}
+.tile:nth-child(3){background:linear-gradient(145deg,#24160a,#182421)}
+.tile:nth-child(4){background:linear-gradient(145deg,#26100f,#17101a)}
+.tile b{font-family:"Yatra One";font-size:21px}
+.tile small{display:block;color:#9f9181;margin-top:8px}
+
+footer{text-align:center;color:#796e64;font-size:10px;letter-spacing:2px;padding:22px}
+
+#file{display:none}
+.add{
+ border:1px solid #d8ad6355;background:transparent;color:#d8ad63;
+ padding:8px 12px;cursor:pointer;font-size:11px;
+}
+
+@media(max-width:900px){
+ .frame{padding:25px}.hero{grid-template-columns:1fr;padding:45px 2vw;gap:35px}
+ .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+ .page{padding:8px}.frame{min-height:calc(100vh - 16px);padding:20px}
+ nav{display:none}.hero{padding:45px 0}
+ h1{font-size:64px}.grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="frame">
+ <div class="flower f1"></div><div class="flower f2"></div><div class="flower f3"></div><div class="flower f4"></div>
+
+ <header>
+  <div class="logo">बदनाम गली <span>بدنام گلی</span></div>
+  <nav><a href="#music">MUSIC</a><a href="#library">LIBRARY</a><label class="add" for="file">+ ADD MUSIC</label></nav>
+ </header>
+
+ <main class="hero">
+  <div>
+   <div class="kicker">بدنام گली</div>
+   <h1>बदनाम<br>गली</h1>
+   <p class="description">
+    A digital mehfil for songs that belong somewhere between midnight,
+    old streets and new sounds. No poster image — the interface itself
+    carries the vintage Indian manuscript / modern Desi-pop aesthetic.
+   </p>
+  </div>
+
+  <div class="music-card" id="music">
+   <div class="card-title">आज की महफ़िल</div>
+
+   <div id="tracks">
+    <div class="track" data-demo="0"><div class="num">01</div><div class="track-name"><strong>First Gali</strong><small>Your music goes here</small></div><div class="playmini">▶</div></div>
+    <div class="track" data-demo="1"><div class="num">02</div><div class="track-name"><strong>Raat Ka Sheher</strong><small>Midnight selection</small></div><div class="playmini">▶</div></div>
+    <div class="track" data-demo="2"><div class="num">03</div><div class="track-name"><strong>Purane Afsane</strong><small>Old stories</small></div><div class="playmini">▶</div></div>
+   </div>
+
+   <div class="player">
+    <button class="play" id="play">▶</button>
+    <div class="now">
+      <strong id="now">No song loaded</strong>
+      <small id="artist">Add an audio file</small>
+      <div class="progress" id="progress"><div class="bar" id="bar"></div></div>
+    </div>
+    <div class="time"><span id="cur">0:00</span><br><span id="dur">0:00</span></div>
+   </div>
+  </div>
+ </main>
+
+ <section class="library" id="library">
+  <div class="section-title"><h2>गली की playlists</h2><span>CURATED ROOMS</span></div>
+  <div class="grid">
+   <div class="tile"><b>रात की महफ़िल</b><small>Late-night sounds</small></div>
+   <div class="tile"><b>पुराने अफ़साने</b><small>Vintage moods</small></div>
+   <div class="tile"><b>नई गली</b><small>Desi pop & new sounds</small></div>
+   <div class="tile"><b>दिल की बात</b><small>Slow & soulful</small></div>
+  </div>
+ </section>
+
+ <footer>TARUNN K. • BADNAAM GALI</footer>
+</div>
+</div>
+
+<input id="file" type="file" accept="audio/*" multiple>
+
+<script>
+const audio=new Audio();
+let songs=[],index=0,urls=[];
+const $=id=>document.getElementById(id);
+const fmt=s=>!isFinite(s)?"0:00":Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0");
+
+function load(i,autoplay=false){
+ if(!songs.length)return;
+ index=(i+songs.length)%songs.length;
+ audio.src=songs[index].url;
+ $("now").textContent=songs[index].name;
+ $("artist").textContent="Badnaam Gali • local music";
+ audio.load();
+ if(autoplay){audio.play();$("play").textContent="Ⅱ"}
+}
+$("file").onchange=e=>{
+ urls.forEach(u=>URL.revokeObjectURL(u));urls=[];
+ songs=[...e.target.files].filter(f=>f.type.startsWith("audio/")).map(f=>{let u=URL.createObjectURL(f);urls.push(u);return{name:f.name,url:u}});
+ if(songs.length)load(0);
+};
+$("play").onclick=()=>{
+ if(!songs.length){$("file").click();return}
+ if(audio.paused){audio.play();$("play").textContent="Ⅱ"}else{audio.pause();$("play").textContent="▶"}
+};
+audio.onloadedmetadata=()=>$("dur").textContent=fmt(audio.duration);
+audio.ontimeupdate=()=>{
+ $("cur").textContent=fmt(audio.currentTime);
+ $("bar").style.width=(audio.duration?audio.currentTime/audio.duration*100:0)+"%";
+};
+audio.onended=()=>load(index+1,true);
+$("progress").onclick=e=>{
+ if(!audio.duration)return;
+ const r=e.currentTarget.getBoundingClientRect();
+ audio.currentTime=((e.clientX-r.left)/r.width)*audio.duration;
+};
+</script>
+</body>
+</html>
