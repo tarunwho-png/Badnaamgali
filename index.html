@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Badnaam Gali | Digital Mehfil</title>
+    <!-- Vintage & Manuscript Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CORE CSS --- */
+        :root {
+            --primary-gold: #c9a55c; 
+            --accent-crimson: #a33c3c;
+            --bg-dark: #12100d;
+            --paper-aged: #e1d8c1;
+            --player-bg: rgba(18, 16, 13, 0.95);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            font-family: 'Playfair Display', serif;
+            color: var(--paper-aged);
+            overflow-x: hidden;
+            -webkit-user-select: none; 
+            user-select: none;
+        }
+
+        /* --- LANDING / HERO SECTION --- */
+        #landing {
+            width: 100%;
+            height: 100vh;
+            background-color: var(--bg-dark);
+            background-image: url('./poster.jpg'); 
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        #landing::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 35vh;
+            background: linear-gradient(to bottom, rgba(18, 16, 13, 0) 0%, rgba(18, 16, 13, 1) 100%);
+            z-index: 2;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 6vh;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel Decorative', cursive;
+            color: var(--primary-gold);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
+
+        /* --- DIGITAL MEHFIL SECTION --- */
+        #mehfil {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background-color: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px 140px 20px;
+            box-sizing: border-box;
+            z-index: 3;
+        }
+
+        .mehfil-content {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mehfil-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(201, 165, 92, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mehfil-urdu-header {
+            font-size: 1.1rem;
+            color: var(--primary-gold);
+            text-align: right;
+            direction: rtl;
+        }
+
+        .mehfil-hindi-header {
+            font-family: 'Noto Serif Devanagari', serif;
+            font-size: 1.1rem;
+            color: var(--paper-aged);
+            text-align: left;
+        }
+
+        .mehfil-title-area {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .urdu-main-sub {
+            font-size: 1.3rem;
+            color: var(--accent-crimson);
+            margin-bottom: 5px;
+        }
+
+        .english-main-title {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 2.8rem;
+            line-height: 1.2;
+            color: var(--primary-gold);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            margin: 0;
+        }
+
+        .mehfil-intro {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--paper-aged);
+            opacity: 0.85;
+            margin-bottom: 15px;
+        }
+
+        /* --- SEARCH UI --- */
+        .search-box-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #song-search-input {
+            flex-grow: 1;
+            background: rgba(18, 16, 13, 0.8);
+            border: 1px solid var(--primary-gold);
+            color: var(--paper-aged);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        #song-search-input::placeholder {
+            color: rgba(225, 216, 193, 0.5);
+        }
+
+        #search-btn {
+            background: var(--primary-gold);
+            color: var(--bg-dark);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Playfair Display', serif;
+            transition: background 0.2s ease;
+        }
+
+        #search-btn:hover {
+            background: var(--paper-aged);
+        }
+
+        /* --- SONG LIST --- */
+        .mehfil-player-list {
+            background-color: var(--player-bg);
+            border: 1px solid rgba(201, 165, 92, 0.25);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        }
+
+        .player-decorative-top {
+            width: 100%;
+            height: 8px;
+            background-image: linear-gradient(90deg, var(--primary-gold) 50%, transparent 50%);
+            background-size: 16px 8px;
+            opacity: 0.3;
+            margin-bottom: 10px;
+        }
+
+        .player-hindi-title {
+            font-family: 'Noto Serif Devanagari', serif;
+            font-size: 1.4rem;
+            color: var(--primary-gold);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .song-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 15px;
+            border-bottom: 1px solid rgba(201, 165, 92, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .song-item:last-child {
+            border-bottom: none;
+        }
+
+        .song-item:hover {
+            background-color: rgba(201, 165, 92, 0.12);
+        }
+
+        .song-item.active {
+            background-color: rgba(163, 60, 60, 0.2);
+            border-left: 3px solid var(--accent-crimson);
+        }
+
+        .song-index {
+            color: var(--accent-crimson);
+            font-size: 0.9rem;
+            margin-right: 15px;
+            width: 25px;
+            text-align: center;
+        }
+
+        .song-details {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        .song-title {
+            font-size: 1rem;
+            color: var(--paper-aged);
+            font-weight: bold;
+        }
+
+        .song-sub {
+            font-size: 0.8rem;
+            color: var(--paper-aged);
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        .play-icon {
+            color: var(--primary-gold);
+            font-size: 1rem;
+        }
+
+        .footer-stamp {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.1rem;
+            color: var(--primary-gold);
+            text-align: center;
+            opacity: 0.6;
+            margin-top: 40px;
+            padding: 8px 18px;
+            border: 1px solid rgba(201, 165, 92, 0.3);
+            display: inline-block;
+            align-self: center;
+        }
+
+        /* --- STICKY AUDIO PLAYER BAR --- */
+        .audio-bar-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--player-bg);
+            border-top: 1px solid var(--primary-gold);
+            padding: 12px 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .now-playing-label {
+            font-size: 0.85rem;
+            color: var(--primary-gold);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        audio {
+            width: 100%;
+            max-width: 600px;
+            height: 36px;
+            outline: none;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .english-main-title {
+                font-size: 2rem;
+            }
+            .mehfil-title-area {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="landing">
+        <div class="scroll-hint">▼ SCROLL FOR MEHFIL ▼</div>
+    </div>
+
+    <div id="mehfil">
+        <div class="mehfil-content">
+
+            <div class="mehfil-header">
+                <div class="mehfil-hindi-header">बदनाम गली</div>
+                <div class="mehfil-urdu-header">بدنام گلی</div>
+            </div>
+
+            <div class="mehfil-title-area">
+                <div class="urdu-main-sub">بدنام گلی</div>
+                <h2 class="english-main-title">Badnaam Gali</h2>
+            </div>
+
+            <div class="mehfil-intro">
+                A digital mehfil for songs that belong somewhere between midnight, old streets, and new sounds.
+            </div>
+
+            <!-- Search Area -->
+            <div class="search-box-container">
+                <input type="text" id="song-search-input" placeholder="Type artist or song name..." />
+                <button id="search-btn">Search</button>
+            </div>
+
+            <!-- Search Results -->
+            <div id="search-results" class="mehfil-player-list" style="display: none;">
+                <div class="player-decorative-top"></div>
+                <div class="player-hindi-title">खोज परिणाम</div>
+                <div id="results-container"></div>
+            </div>
+
+            <!-- Default Playlist with direct mp3 fallback audio -->
+            <div class="mehfil-player-list" id="default-playlist">
+                <div class="player-decorative-top"></div>
+                <div class="player-hindi-title">आज की महफ़िल</div>
+
+                <div class="song-item" onclick="playDirectAudio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'First Gali', 'Midnight Ambient Edit', this)">
+                    <div class="song-index">01</div>
+                    <div class="song-details">
+                        <div class="song-title">First Gali</div>
+                        <div class="song-sub">Midnight Ambient Edit</div>
+                    </div>
+                    <div class="play-icon">▶</div>
+                </div>
+
+                <div class="song-item" onclick="playDirectAudio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 'Raat Ka Sheher', 'Acoustic Mehfil', this)">
+                    <div class="song-index">02</div>
+                    <div class="song-details">
+                        <div class="song-title">Raat Ka Sheher</div>
+                        <div class="song-sub">Acoustic Mehfil</div>
+                    </div>
+                    <div class="play-icon">▶</div>
+                </div>
+
+                <div class="song-item" onclick="playDirectAudio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', 'Sufi Distortion', 'Desi-Pop Mix', this)">
+                    <div class="song-index">03</div>
+                    <div class="song-details">
+                        <div class="song-title">Sufi Distortion</div>
+                        <div class="song-sub">Desi-Pop Mix</div>
+                    </div>
+                    <div class="play-icon">▶</div>
+                </div>
+            </div>
+
+            <div class="footer-stamp">Tarunn k.</div>
+        </div>
+    </div>
+
+    <!-- Audio Player -->
+    <div class="audio-bar-container">
+        <div class="now-playing-label" id="track-label">Tap any track above to play</div>
+        <audio id="main-audio" controls></audio>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audioPlayer = document.getElementById('main-audio');
+            const trackLabel = document.getElementById('track-label');
+            const searchInput = document.getElementById('song-search-input');
+            const searchBtn = document.getElementById('search-btn');
+            const searchResults = document.getElementById('search-results');
+            const resultsContainer = document.getElementById('results-container');
+
+            // API Instances for extraction fallback
+            const API_NODES = [
+                "https://pipedapi.kavin.rocks",
+                "https://api.piped.privacydev.net",
+                "https://pipedapi.tokhmi.xyz"
+            ];
+
+            window.playDirectAudio = function(url, title, artist, elem) {
+                document.querySelectorAll('.song-item').forEach(s => s.classList.remove('active'));
+                if (elem) elem.classList.add('active');
+                
+                audioPlayer.src = url;
+                trackLabel.innerText = 'Playing: ' + title + ' — ' + artist;
+                audioPlayer.play().catch(e => {
+                    trackLabel.innerText = 'Tap play button below to listen';
+                });
+            };
+
+            async function fetchStreamWithFallback(videoId, title, artist, elementRef) {
+                trackLabel.innerText = 'Connecting to audio stream...';
+                
+                let loaded = false;
+                for (let node of API_NODES) {
+                    try {
+                        const res = await fetch(`${node}/streams/${videoId}`);
+                        const streamData = await res.json();
+
+                        if (streamData.audioStreams && streamData.audioStreams.length > 0) {
+                            const audioStream = streamData.audioStreams[streamData.audioStreams.length - 1];
+                            playDirectAudio(audioStream.url, title, artist, elementRef);
+                            loaded = true;
+                            break;
+                        }
+                    } catch (e) {
+                        console.log('Trying next node...');
+                    }
+                }
+
+                if (!loaded) {
+                    trackLabel.innerText = 'Server busy. Please try another track.';
+                }
+            }
+
+            async function performSearch() {
+                const query = searchInput.value.trim();
+                if (!query) return;
+
+                searchBtn.innerText = 'Searching...';
+                resultsContainer.innerHTML = '<div style="text-align:center; padding: 15px;">Searching tracks...</div>';
+                searchResults.style.display = 'flex';
+
+                let success = false;
+                for (let node of API_NODES) {
+                    try {
+                        const response = await fetch(`${node}/search?q=${encodeURIComponent(query)}&filter=music_songs`);
+                        const data = await response.json();
+
+                        if (data.items && data.items.length > 0) {
+                            resultsContainer.innerHTML = '';
+                            data.items.slice(0, 5).forEach((item, index) => {
+                                const videoId = item.url.split("v=")[1];
+                                const itemDiv = document.createElement('div');
+                                itemDiv.className = 'song-item';
+                                itemDiv.innerHTML = `
+                                    <div class="song-index">0${index + 1}</div>
+                                    <div class="song-details">
+                                        <div class="song-title">${item.title}</div>
+                                        <div class="song-sub">${item.uploaderName}</div>
+                                    </div>
+                                    <div class="play-icon">▶</div>
+                                `;
+                                itemDiv.onclick = () => fetchStreamWithFallback(videoId, item.title, item.uploaderName, itemDiv);
+                                resultsContainer.appendChild(itemDiv);
+                            });
+                            success = true;
+                            break;
+                        }
+                    } catch (err) {
+                        console.log('Search node failed, trying next...');
+                    }
+                }
+
+                if (!success) {
+                    resultsContainer.innerHTML = '<div style="text-align:center; padding: 15px;">No results found or network timeout. Try again.</div>';
+                }
+                searchBtn.innerText = 'Search';
+            }
+
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') performSearch();
+            });
+        });
+    </script>
+</body>
+</html>
+
